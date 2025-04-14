@@ -1,13 +1,17 @@
-"use client"
+"use client";
+
 import { useEffect, useState } from "react";
 import { MdLightMode, MdDarkMode } from "react-icons/md";
 
 export default function ThemeToggle() {
-  const [theme, setTheme] = useState(
-    typeof window !== "undefined" && localStorage.getItem("theme") === "dark"
-      ? "dark"
-      : "light"
-  );
+  const [theme, setTheme] = useState("light");
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+      setTheme(savedTheme);
+    }
+  }, []);
 
   useEffect(() => {
     if (theme === "dark") {
@@ -19,11 +23,12 @@ export default function ThemeToggle() {
     }
   }, [theme]);
 
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"));
+  };
+
   return (
-    <button
-      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className="p-2 hover:text-gray-500 rounded"
-    >
+    <button onClick={toggleTheme} className="p-2 hover:text-gray-500 rounded">
       {theme === "dark" ? <MdDarkMode /> : <MdLightMode />}
     </button>
   );
