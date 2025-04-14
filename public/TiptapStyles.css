@@ -1,0 +1,7 @@
+/* public/TiptapStyles.css or in your CSS module */
+.ProseMirror {
+    min-height: 300px;
+    padding: 1rem;
+    outline: none;
+  }
+  

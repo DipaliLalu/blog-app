@@ -1,19 +1,20 @@
-import { verify } from 'jsonwebtoken';
-import { NextResponse } from 'next/server'
- 
-export function middleware(req) {
-    const token = req.cookies.get('token');
-    if (!token) {
-        return NextResponse.redirect(new URL('/login', req.url));
-      }
-      try {
-        verify(token, process.env.TOKEN_SECRET); 
-        return NextResponse.next(); 
-      } catch (error) {
-        return NextResponse.redirect(new URL('/login', req.url));
-      }
+// middleware.ts
+import { NextResponse } from "next/server";
+
+export function middleware(request) {
+  const isAuthenticated = Boolean(request.cookies.get("token")); // Adjust based on auth method
+
+  if (
+    request.nextUrl.pathname.startsWith("/dashboard") &&
+    !isAuthenticated
+  ) {
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
+
+  return NextResponse.next();
 }
+
  
 export const config = {
-  matcher: ['/login','/signup','/dashboard'],
+  matcher: ['/dashboard/:path*'],
 }

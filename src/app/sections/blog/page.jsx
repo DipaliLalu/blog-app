@@ -1,5 +1,5 @@
-import Link from "next/link";
-import { CardDemo } from "../card/page";
+import CardDemo from "../card/page";
+
 
 export default function BlogSection() {
     return (

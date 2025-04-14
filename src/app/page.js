@@ -1,8 +1,9 @@
 import Image from "next/image";
-import Navbar from "./components/navbar/page";
-import HeroSection from "./components/hero-section/page";
-import AboutSection from "./components/about/page";
-import BlogSection from "./components/blog/page";
+import HeroSection from "./sections/hero-section/page";
+import Navbar from "./sections/navbar/page";
+import AboutSection from "./sections/about/page";
+import BlogSection from "./sections/blog/page";
+
 
 export default function Home() {
   return (
