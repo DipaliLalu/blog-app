@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function HeroSection() {
     return (
       <section className="relative py-20 px-6 text-center">
@@ -8,12 +10,12 @@ export default function HeroSection() {
           <p className="text-lg md:text-xl mb-6">
             Explore insightful articles, tips, and stories on web development, tech trends, and more!
           </p>
-          <a
-            href="#latest-posts"
+          <Link
+            href="/dashboard"
             className="bg-white text-blue-600 font-semibold px-6 py-3 rounded-lg shadow-lg hover:bg-gray-200 transition"
           >
-            Read Latest Posts
-          </a>
+            Create your Blog
+          </Link>
         </div>
       </section>
     );
