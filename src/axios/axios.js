@@ -1,9 +1,9 @@
 export const endPoints={
     auth:{
-        signup:'http://localhost:3000/api/signup',
-        login:'http://localhost:3000/api/login'
+        signup:`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/signup`,
+        login:`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/login`
     },
     dashboard:{
-        blogForm:'http://localhost:3000/api/create-edit-blog-form',
+        blogForm:`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/create-edit-blog-form`,
     }
 }
