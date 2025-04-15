@@ -1,3 +1,4 @@
+"use client"
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -6,30 +7,16 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import TagList from "./tag-list";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import TiptapEditor from "./TiptapEditor";
-
-
+import { formSchema } from "@/schema/dashboard/formSchema";
+import { endPoints } from "@/axios/axios";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 export default function Form({ currentValue }) {
-
-    const imageFileSchema = z
-        .any()
-        .refine((file) => file instanceof File, {
-            message: "File is required",
-        });
-
-
-    const formSchema = z.object({
-        title: z.string().min(3, "Title must be at 3 characters"),
-        description: z.string().min(6, "description must be at least 6 characters"),
-        image: imageFileSchema,
-        content: z.string().min(10, 'Content is too short'),
-        taglist: z
-            .array(z.string().min(1))
-            .min(1, "Please enter at least 1 tag"),
-    })
+    const [loading, setLoading] = useState(false)
     const defaultValue = {
         title: currentValue?.title || "",
         description: currentValue?.description || "",
@@ -37,6 +24,7 @@ export default function Form({ currentValue }) {
         content: currentValue?.content || "",
         taglist: currentValue?.taglist || [],
     }
+
     const {
         register,
         handleSubmit,
@@ -48,14 +36,31 @@ export default function Form({ currentValue }) {
     } = useForm({
         resolver: zodResolver(formSchema),
     });
+
     useEffect(() => {
         reset(defaultValue)
     }, [])
 
     const image = watch("image");
-    const onSubmit = (data) => {
-        console.log(data)
-    }
+    const onSubmit = async (data) => {
+        try {
+            setLoading(true);
+            const url = endPoints.dashboard.blogForm;
+            const response = await axios.post(url, data);
+            console.log(response)
+            reset();
+            toast.success(response.data.message || "Blog created successfully");
+            // router.push('/login');
+            setLoading(false);
+
+        } catch (error) {
+            setLoading(true);
+            console.log(error)
+            const message = error.message || 'Something went wrong';
+            toast.error(message);
+            setLoading(false);
+        }
+    };
     return (
         <form className="flex flex-col gap-7" onSubmit={handleSubmit(onSubmit)}>
             <div className="relative">
@@ -95,11 +100,11 @@ export default function Form({ currentValue }) {
                 <p className="text-sm text-red-500 mt-1">{errors.image.message}</p>
             )}
             <div className="relative">
-            <Label className="mb-3 text-md" htmlFor='content'>Content</Label>
-            <TiptapEditor
-                content={watch('content')}
-                onChange={(html) => setValue('content', html)}
-            />
+                <Label className="mb-3 text-md" htmlFor='content'>Content</Label>
+                <TiptapEditor
+                    content={watch('content')}
+                    onChange={(html) => setValue('content', html)}
+                />
             </div>
             {errors.content && <p className="text-red-500">{errors.content.message}</p>}
             <div className="relative">
@@ -109,7 +114,7 @@ export default function Form({ currentValue }) {
             {errors.taglist && (
                 <p className="text-sm text-red-500 mt-1">{errors.taglist.message}</p>
             )}
-            <Button type="submit" className='w-1/2 self-end'>Submit</Button>
+            <Button type="submit" className='w-1/2 self-end' disabled={loading}>{loading ? 'Submitting..' : 'Submit'}</Button>
         </form>
     )
 }
