@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import TiptapEditor from "./TiptapEditor";
 import { formSchema } from "@/schema/dashboard/formSchema";
-import { endPoints } from "@/axios/axios";
+import { endPoints } from "@/utils/axios";
 import axios from "axios";
 import toast from "react-hot-toast";
 
@@ -43,6 +43,7 @@ export default function Form({ currentValue }) {
 
     const image = watch("image");
     const onSubmit = async (data) => {
+        console.log(data)
         try {
             setLoading(true);
             const url = endPoints.dashboard.blogForm;
@@ -89,6 +90,7 @@ export default function Form({ currentValue }) {
             {errors.description && (
                 <p className="text-sm text-red-500 mt-1">{errors.description.message}</p>
             )}
+
             <div className="relative">
                 <Label className="mb-3 text-md" htmlFor='cover'>Cover</Label>
                 <FileUpload
@@ -96,9 +98,11 @@ export default function Form({ currentValue }) {
                     onChange={(file) => setValue("image", file)}
                 />
             </div>
+
             {errors.image && (
                 <p className="text-sm text-red-500 mt-1">{errors.image.message}</p>
             )}
+
             <div className="relative">
                 <Label className="mb-3 text-md" htmlFor='content'>Content</Label>
                 <TiptapEditor
@@ -107,6 +111,7 @@ export default function Form({ currentValue }) {
                 />
             </div>
             {errors.content && <p className="text-red-500">{errors.content.message}</p>}
+            
             <div className="relative">
                 <Label className="mb-3 text-md" htmlFor='taglist'>Tags</Label>
                 <TagList control={control} name="taglist" />

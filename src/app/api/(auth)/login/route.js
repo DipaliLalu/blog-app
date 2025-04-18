@@ -35,8 +35,7 @@ export async function POST(req) {
     const response = NextResponse.json(
       {
         message: "Login success",
-        success: true,
-        redirectUrl: user.isAdmin ? "/admin" : "/",
+        success: true
       },
       { status: 200 }
     );
