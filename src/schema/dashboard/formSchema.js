@@ -1,10 +1,11 @@
 import { z } from "zod";
 
 const imageFileSchema = z
-    .any()
-    .refine((file) => file instanceof File, {
-        message: "File is required",
-    });
+    .string()
+    .min(1, "Image is required")
+    .refine((val) => val.startsWith("data:image/"), {
+        message: "Invalid image format",
+    })
 
 
 export const formSchema = z.object({

@@ -11,7 +11,7 @@ import { Input } from "@heroui/react";
 import { MdEmail, MdOutlineSecurity } from "react-icons/md";
 import { signupSchema } from "@/schema/(auth)/signupSchema";
 import toast from "react-hot-toast";
-import { endPoints } from "@/axios/axios";
+import { endPoints } from "@/utils/axios";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 

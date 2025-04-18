@@ -12,7 +12,7 @@ import { MdEmail, MdOutlineSecurity } from "react-icons/md";
 import { loginschema } from "@/schema/(auth)/loginSchema";
 import toast from "react-hot-toast";
 import axios from "axios";
-import { endPoints } from "@/axios/axios";
+import { endPoints } from "@/utils/axios";
 import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
