@@ -9,40 +9,54 @@ dbConnect();
 
 export async function POST(req) {
     try {
-        // Get token from cookies
         const token = cookies().get("token")?.value;
         if (!token) return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
 
-        // Decode token to get user
-        const decoded = jwt.verify(token, process.env.TOKEN_SECRET); // adjust to your JWT secret
+        const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
         const userId = decoded.id;
 
         const reqBody = await req.json();
-        const { title, description, image, content, taglist } = reqBody;
+        const { _id, title, description, image, content, taglist } = reqBody;
 
-        const blogExits = await Blog.findOne({ title });
-
-        if (blogExits) {
-            return NextResponse.json({ error: "Title already exist" }, { status: 400 });
-        }
-        const newBlog = new Blog({
-            title,
-            description,
-            image,
-            content,
-            taglist,
-            author:userId,
-        });
-        const savedBlog = await newBlog.save();
-        const response = NextResponse.json(
-            {
-                message: "Blog created success",
-                success: true,
-                blog: savedBlog,
-            },
-            { status: 200 }
-        );
-        return response;
+        if (_id) {
+            // EDIT blog — do not update title
+            const updatedBlog = await Blog.findByIdAndUpdate(
+              _id,
+              {
+                description,
+                image,
+                content,
+                taglist,
+              },
+              { new: true }
+            );
+          
+            return NextResponse.json({ message: "Blog updated", blog: updatedBlog,success: "update", });
+          } else {
+            // CREATE blog — check title uniqueness
+            const blogExists = await Blog.findOne({ title });
+            if (blogExists) {
+              return NextResponse.json({ error: "Title already exists" }, { status: 400 });
+            }
+          
+            const newBlog = new Blog({
+              title,
+              description,
+              image,
+              content,
+              taglist,
+              author: userId,
+            });
+          
+            const savedBlog = await newBlog.save();
+          
+            return NextResponse.json({
+              message: "Blog created successfully",
+              success: true,
+              blog: savedBlog,
+            }, { status: 201 });
+          }
+          
     } catch (error) {
         return NextResponse.json({ error: error.message }, { status: 500 });
     }

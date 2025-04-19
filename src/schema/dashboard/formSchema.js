@@ -9,6 +9,7 @@ const imageFileSchema = z
 
 
 export const formSchema = z.object({
+    _id: z.string().optional(),
     title: z.string().min(3, "Title must be at 3 characters"),
     description: z.string().min(6, "description must be at least 6 characters"),
     image: imageFileSchema,

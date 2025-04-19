@@ -13,8 +13,7 @@ import { useEffect } from 'react'
 import '../../../../public/TiptapStyles.css'
 import { Button } from '@/components/ui/button'
 import { Bold, Heading1, Heading2Icon, Heading3Icon, Italic, QuoteIcon, Redo, Strikethrough, UnderlineIcon, Undo } from 'lucide-react'
-import { GiBulletBill, GiButter } from 'react-icons/gi'
-import { MdClear, MdFormatListBulleted, MdInsertPhoto, MdOutlineInsertPageBreak } from 'react-icons/md'
+import { MdClear, MdFormatListBulleted, MdOutlineInsertPageBreak } from 'react-icons/md'
 import { FaParagraph } from 'react-icons/fa'
 
 export default function TiptapEditor({ content, onChange }) {
@@ -38,32 +37,32 @@ export default function TiptapEditor({ content, onChange }) {
     }, [editor, content])
 
     return (
-        <div className="border border-gray-300 rounded-md">
-            <div className="flex flex-wrap gap-2 p-2 border-b border-gray-300 bg-gray-50 text-sm">
-                <Button className="bg-transprent text-black hover:bg-transparent cursor-pointer" onClick={() => editor.chain().focus().toggleBold().run()}><Bold /></Button>
-                <Button className="bg-transprent text-black hover:bg-transparent cursor-pointer" onClick={() => editor.chain().focus().toggleItalic().run()}><Italic /></Button>
-                <Button className="bg-transprent text-black hover:bg-transparent cursor-pointer" onClick={() => editor.chain().focus().toggleUnderline().run()}><UnderlineIcon /></Button>
-                <Button className="bg-transprent text-black hover:bg-transparent cursor-pointer" onClick={() => editor.chain().focus().toggleStrike().run()}><Strikethrough /></Button>
+        <div className="border border-gray-300 rounded-md dark:bg-transparent">
+            <div className="flex flex-wrap gap-2 p-2 border-b dark:text-white text-sm">
+                <Button className="bg-transprent text-black dark:text-white  hover:bg-transparent cursor-pointer" onClick={() => editor.chain().focus().toggleBold().run()}><Bold /></Button>
+                <Button className="bg-transprent text-black dark:text-white hover:bg-transparent cursor-pointer" onClick={() => editor.chain().focus().toggleItalic().run()}><Italic /></Button>
+                <Button className="bg-transprent text-black dark:text-white hover:bg-transparent cursor-pointer" onClick={() => editor.chain().focus().toggleUnderline().run()}><UnderlineIcon /></Button>
+                <Button className="bg-transprent text-black dark:text-white hover:bg-transparent cursor-pointer" onClick={() => editor.chain().focus().toggleStrike().run()}><Strikethrough /></Button>
 
-                <Button className="bg-transprent text-black hover:bg-transparent cursor-pointer" onClick={() => editor.chain().focus().toggleCode().run()}>Inline Code</Button>
-                <Button className="bg-transprent text-black hover:bg-transparent cursor-pointer" onClick={() => editor.chain().focus().toggleCodeBlock().run()}>Code Block</Button>
-                <Button className="bg-transprent text-black hover:bg-transparent cursor-pointer" onClick={() => editor.chain().focus().toggleBlockquote().run()}><QuoteIcon /></Button>
+                <Button className="bg-transprent text-black dark:text-white hover:bg-transparent cursor-pointer" onClick={() => editor.chain().focus().toggleCode().run()}>Inline Code</Button>
+                <Button className="bg-transprent text-black dark:text-white hover:bg-transparent cursor-pointer" onClick={() => editor.chain().focus().toggleCodeBlock().run()}>Code Block</Button>
+                <Button className="bg-transprent text-black dark:text-white hover:bg-transparent cursor-pointer" onClick={() => editor.chain().focus().toggleBlockquote().run()}><QuoteIcon /></Button>
 
-                <Button className="bg-transprent text-black hover:bg-transparent cursor-pointer" onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}><Heading1 /></Button>
-                <Button className="bg-transprent text-black hover:bg-transparent cursor-pointer" onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}><Heading2Icon /></Button>
-                <Button className="bg-transprent text-black hover:bg-transparent cursor-pointer" onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}><Heading3Icon /></Button>
+                <Button className="bg-transprent text-black dark:text-white hover:bg-transparent cursor-pointer" onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}><Heading1 /></Button>
+                <Button className="bg-transprent text-black dark:text-white hover:bg-transparent cursor-pointer" onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}><Heading2Icon /></Button>
+                <Button className="bg-transprent text-black dark:text-white hover:bg-transparent cursor-pointer" onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}><Heading3Icon /></Button>
 
-                <Button className="bg-transprent text-black hover:bg-transparent cursor-pointer" onClick={() => editor.chain().focus().toggleBulletList().run()}><MdFormatListBulleted /></Button>
-                <Button className="bg-transprent text-black hover:bg-transparent cursor-pointer" onClick={() => editor.chain().focus().toggleOrderedList().run()}><GoListOrdered /></Button>
+                <Button className="bg-transprent text-black dark:text-white hover:bg-transparent cursor-pointer" onClick={() => editor.chain().focus().toggleBulletList().run()}><MdFormatListBulleted /></Button>
+                <Button className="bg-transprent text-black dark:text-white hover:bg-transparent cursor-pointer" onClick={() => editor.chain().focus().toggleOrderedList().run()}><GoListOrdered /></Button>
 
-                <Button className="bg-transprent text-black hover:bg-transparent cursor-pointer" onClick={() => editor.chain().focus().setParagraph().run()}><FaParagraph /></Button>
-                <Button className="bg-transprent text-black hover:bg-transparent cursor-pointer" onClick={() => editor.chain().focus().setHardBreak().run()}><MdOutlineInsertPageBreak /></Button>
+                <Button className="bg-transprent text-black dark:text-white hover:bg-transparent cursor-pointer" onClick={() => editor.chain().focus().setParagraph().run()}><FaParagraph /></Button>
+                <Button className="bg-transprent text-black dark:text-white hover:bg-transparent cursor-pointer" onClick={() => editor.chain().focus().setHardBreak().run()}><MdOutlineInsertPageBreak /></Button>
 
-                <Button className="bg-transprent text-black hover:bg-transparent cursor-pointer" onClick={() => editor.chain().focus().undo().run()}><Undo /></Button>
-                <Button className="bg-transprent text-black hover:bg-transparent cursor-pointer" onClick={() => editor.chain().focus().redo().run()}><Redo /></Button>
+                <Button className="bg-transprent text-black dark:text-white hover:bg-transparent cursor-pointer" onClick={() => editor.chain().focus().undo().run()}><Undo /></Button>
+                <Button className="bg-transprent text-black dark:text-white hover:bg-transparent cursor-pointer" onClick={() => editor.chain().focus().redo().run()}><Redo /></Button>
 
-                <Button className="bg-transprent text-black hover:bg-transparent cursor-pointer" onClick={() => editor.chain().focus().clearNodes().run()}><MdClear /></Button>
-                <Button className="bg-transprent text-black hover:bg-transparent cursor-pointer">
+                <Button className="bg-transprent text-black dark:text-white hover:bg-transparent cursor-pointer" onClick={() => editor.chain().focus().clearNodes().run()}><MdClear /></Button>
+                <Button className="bg-transprent text-black dark:text-white hover:bg-transparent cursor-pointer">
                     {editor && (
                         <input
                             type="color"
